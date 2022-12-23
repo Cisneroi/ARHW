@@ -33,11 +33,8 @@ def recaptcha():
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     except Exception as e:
-        print('- 👀 sb.open() issue:', e, '\n try again!')
-        sb.driver.close()
-        urlOpen(urlLogin)
-        sb.assert_text('Login', 'h2', timeout=20)
-        print('- access')
+        print('- 👀 sb.open() issue: %s \nwhen open: %s' % (e,sb.get_current_url()))
+        return False
     sb.switch_to_frame('[src*="/recaptcha/api2/anchor?"]')
     print('- switch to frame checkbox')
     checkbox()
